@@ -2,12 +2,13 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("<int:num>/",views.monthly_challenge_by_number),
-    path("<str:month>/",views.monthly_challenge)
+    path("",views.index),
+    path("<int:number>/",views.monthly_challenge_by_number),
+    path("<str:month>/",views.monthly_challenge,name="month_challenge")
 ]
 
 ''' 
- path("january/",views.january),
+ path("january/",view s.january),
     path("february/",views.february),
 '''
 
@@ -23,3 +24,6 @@ monthly_challenges={"january":"Walk for at least 20 minutes every day!",
                      "october":"Learn Django for at least 20 minutes every day!",
                      "november":"Walk for at least 20 minutes every day!",
                      "december":"Bang Someone"}
+
+
+
