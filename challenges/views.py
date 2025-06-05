@@ -26,21 +26,23 @@ monthly_challenges={"january":"Walk for at least 20 minutes every day!",
                      "september":"Bang Someone",
                      "october":"Learn Django for at least 20 minutes every day!",
                      "november":"Walk for at least 20 minutes every day!",
-                     "december":"Bang Someone"}
-
+                     "december":None}
 
 
 def index(request):
-    list_items=""
     months=list(monthly_challenges.keys())
-    for month in months:
-        capitalize_month=month.capitalize()
-        month_path=reverse("month_challenge",args=[month])
-        list_items+=f"<li><a href=\"{month_path}\">{capitalize_month}</li>"
+    return render(request,"challenges/index.html",{"months":months})
 
-    response_data=f"<ul>{list_items}</ul>"
-    return HttpResponse(response_data)
+def month_list(request):
+    months=list(monthly_challenges.keys())
+    return render(request,"challenges/random.html",{"months":months})
 
+def base_show(request):
+    return render(request,"base.html")
+
+
+
+"""
     
 def monthly_challenge(request,month):
     try:
@@ -49,16 +51,33 @@ def monthly_challenge(request,month):
        return HttpResponse(response_text)
     
     except:
-        return HttpResponseNotFound(f"<h2>Invalid month Input</h2>")
+        return HttpResponseNotFound(f"<h2>Invalid month Input</h2>") """
+
+
+#capitalize()
 
 
 def monthly_challenge(request,month):
-    try:
-       challenge_text=monthly_challenges[month]
-       response_text=render_to_string("challenges/challenge.html")
-       return HttpResponse(response_text)
+    month=month.lower()
+    challenge_text=monthly_challenges.get(month)
+    if challenge_text:
+        return render(request,"challenges/challenge.html", 
+                      {"text":challenge_text,"month_name":month})
+    else:
+        return HttpResponseNotFound(f"<h2>Invalid month Input</h2>")
     
-    except:
+
+def monthly_challenge(request,month):
+    month=month.lower()
+    challenge_text=monthly_challenges.get(month)
+    if challenge_text:
+        return render(request,"challenges/challenge.html", 
+                      {"text":challenge_text,"month_name":month})
+    elif(challenge_text==None):
+        return render(request,"challenges/challenge.html", 
+                      {"text":"No tasks for the given month","month_name":month})
+
+    else:
         return HttpResponseNotFound(f"<h2>Invalid month Input</h2>")
     
 def monthly_challenge_by_number(request,number):
@@ -73,11 +92,20 @@ def monthly_challenge_by_number(request,number):
 
 
 
-
-
-
-
 '''
+def monthly_challenge(request,month):
+    try:
+       challenge_text=monthly_challenges[month]
+       response_text=render_to_string("challenges/challenge.html")
+       return HttpResponse(response_text)
+    
+    except:
+        return HttpResponseNotFound(f"<h2>Invalid month Input</h2>")
+
+
+
+
+
 
 
 def monthly_challenge(request,month):
@@ -102,5 +130,31 @@ def monthly_challenge(request,month):
     
     except:
         return HttpResponseNotFound(f"<h2>Invalid month Input</h2>")
+
+
+
+`       def index(request):
+    months = [
+        "january", "february", "march", "april", "may", "june",
+        "july", "august", "september", "october", "november", "december"]
+    return render(request, "challenges/index.html", {"months": months})
+
+
+    def monthly_challenge(request,month):
+    month=month.lower()
+    challenge_text=monthly_challenges.get(month)
+    if challenge_text:
+        return render(request,"challenges/challenge.html", 
+                      {"text":challenge_text,"month_name":month})
+    else:
+        return HttpResponseNotFound(f"<h2>Invalid month Input</h2>")
+
+
+
+
+
+
+
     
     ''' 
+

@@ -1,0 +1,62 @@
+
+
+{% extends "base.html" %}
+
+{% block page_title %} All Challenges {% endblock %}
+
+ {% block content %}
+ {% include "challenges/includes/header.html" %}
+        <h1>All Month Challenges</h1>
+         <ul>
+            {% for x in months %}
+            <li><a href="{%url 'month_challenge' x%}">{{x|title}}</a></li>
+            {% endfor %}
+        </ul>
+{% endblock %}
+
+
+
+
+
+
+<!-- 
+
+<h2>DEBUG OUTPUT</h2>
+<ul>
+{% for x in months %}
+    <li>
+        raw: '{{ x }}' → 
+        link: <a href="{% url 'month_challenge' x %}">{{ x|title }}</a>
+    </li>
+{% endfor %}
+</ul>
+
+
+
+
+
+ {% for month in months %}
+            <li><a href="/challenges/{{month}}">{{month|title}}</a></li>
+        {% endfor %}
+
+
+-->
+
+
+<!--  -
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge {{month}}</title>
+</head>
+<body>
+    <ul>
+    {% for month in months %}
+        <li><a href="/challenges/{{month}}">{{month|title}}"</a></li>
+    {% endfor %}
+    </ul>
+</body>
+</html> -->

@@ -2,14 +2,11 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("",views.index),
-    path("<int:number>/",views.monthly_challenge_by_number),
-    path("<str:month>/",views.monthly_challenge,name="month_challenge")
+    path("", views.index, name="index"),
+    path("<str:month>/", views.monthly_challenge, name="month_challenge"),
+    path("<int:number>/", views.monthly_challenge_by_number)
 ]
 
-''' 
- path("january/",view s.january),
-    path("february/",views.february),
 '''
 
 monthly_challenges={"january":"Walk for at least 20 minutes every day!",
@@ -27,3 +24,4 @@ monthly_challenges={"january":"Walk for at least 20 minutes every day!",
 
 
 
+'''
